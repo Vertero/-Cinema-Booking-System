@@ -1,0 +1,51 @@
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\bin\Debug\hh.exe.config
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\bin\Debug\hh.exe
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\bin\Debug\hh.pdb
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\bin\Debug\Model.dll
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\bin\Debug\PublicLib.dll
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\bin\Debug\Model.pdb
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\bin\Debug\PublicLib.pdb
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\obj\x86\Debug\hh.BuyTickets.resources
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\obj\x86\Debug\hh.Form1.resources
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\obj\x86\Debug\hh.Form2.resources
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\obj\x86\Debug\hh.Form3.resources
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\obj\x86\Debug\hh.Form4.resources
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\obj\x86\Debug\hh.Form5.resources
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\obj\x86\Debug\hh.Properties.Resources.resources
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\obj\x86\Debug\hh.csproj.GenerateResource.Cache
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\obj\x86\Debug\hh.exe
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\obj\x86\Debug\hh.pdb
+C:\Users\ASUS\Documents\Visual Studio 2010\Projects\hh\hh\obj\x86\Debug\hh.Form6.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\bin\Debug\hh.exe.config
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\bin\Debug\hh.exe
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\bin\Debug\hh.pdb
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\bin\Debug\Model.dll
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\bin\Debug\PublicLib.dll
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\bin\Debug\Model.pdb
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\bin\Debug\PublicLib.pdb
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.BuyTickets.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form1.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form2.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form3.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form4.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form5.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form6.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Properties.Resources.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.csproj.GenerateResource.cache
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.csproj.CoreCompileInputs.cache
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.csproj.CopyComplete
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.exe
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.pdb
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form7.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form8.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form13.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form10.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form11.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form12.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form9.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form14.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\bin\Debug\Model.dll.config
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form15.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form16.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form17.resources
+D:\C++编译所在源文件\repos\User_Projects\hh\hh\obj\x86\Debug\hh.Form18.resources
