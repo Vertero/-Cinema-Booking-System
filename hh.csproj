@@ -36,7 +36,7 @@
   <ItemGroup>
     <Reference Include="IrisSkin4, Version=2006.3.22.45, Culture=neutral, PublicKeyToken=127be25a6db25e07, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\IrisSkin4.dll</HintPath>
+      <HintPath>lib\IrisSkin4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -248,14 +248,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Model\Model\Model.csproj">
-      <Project>{4197209A-0EE6-40A8-B121-C76171E82C30}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\PublicLib\PublicLib\PublicLib.csproj">
-      <Project>{DC6225B7-5760-4897-ADD7-0D8576DB3C54}</Project>
-      <Name>PublicLib</Name>
-    </ProjectReference>
+    <Reference Include="Model">
+      <HintPath>lib\Model.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PublicLib">
+      <HintPath>lib\PublicLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\MP10.ssk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
