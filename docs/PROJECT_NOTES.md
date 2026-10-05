@@ -1,124 +1,112 @@
 # Project Notes
 
-## 1. What this project is
+## 1. Scope
 
-This is a legacy undergraduate Windows Forms cinema booking system whose original GitHub snapshot dates to 2020.
+This document records implementation details that can be verified from the current repository.
 
-The repository is valuable as a historical project and portfolio artifact, but it should be presented honestly: it demonstrates a substantial amount of end-to-end application logic, while also containing the kinds of architectural shortcuts that are common in early projects.
+The project is a Windows Forms cinema booking system created in 2020. The repository contains the UI source project and several binary dependencies, but does not contain the original SQL Server database definition or the source projects for all referenced libraries.
 
-## 2. Recovered functional map
+## 2. Functional map
 
-### Customer workflow
+### Customer side
 
 | Component | Responsibility |
 | --- | --- |
-| `Form1` | Customer login and entry point |
+| `Form1` | Customer login and application entry |
 | `Form2` | Customer booking menu |
 | `Form3` | Customer registration |
 | `Form4` | Movie information and showtime selection |
-| `BuyTickets` | Dynamic seat rendering, selection, availability check and order insertion |
+| `BuyTickets` | Seat rendering, selection, availability checking, and order insertion |
 | `Form5` | Order history and order operations |
-| `Form6` | Membership / VIP workflow |
+| `Form6` | Membership / VIP operations |
 
-### Administrator workflow
+### Administrator side
 
 | Component | Responsibility |
 | --- | --- |
 | `Form7` | Administrator login |
 | `Form8` | Administrator navigation |
-| `Form9` | Cinema hall management |
+| `Form9` | Hall management |
 | `Form10` | Movie management |
 | `Form11` | Showtime management |
 | `Form12` | Order management |
 | `Form13` | Customer management |
 | `Form14` | Statistics navigation |
-| `Form15` | Box-office statistics view |
-| `Form17` | Occupancy statistics view |
+| `Form15` | Statistics-related view |
+| `Form17` | Statistics-related view |
 
-`Form16` and `Form18` are retained as part of the historical source; their UI names are not self-describing enough to document more aggressively without reconstructing their full runtime flow.
+`Form16` and `Form18` are retained in the source tree. Their exact runtime role has not been documented here because the current repository does not provide enough context to identify it with confidence.
 
-## 3. Architecture recovered from the source
+## 3. Project dependencies
 
-The checked-in project is the **WinForms UI layer** (`hh.csproj`).
+The checked-in project is `hh.csproj`, targeting:
 
-The project originally referenced:
+- .NET Framework 4.0 Client Profile
+- x86
+- Windows Forms
 
-- `Model`
-- `PublicLib`
+The project depends on:
 
-as sibling projects outside this repository. Their source code is absent from the original upload, while compiled DLLs were present in the old `bin/Debug` directory.
+- `Model.dll`
+- `PublicLib.dll`
+- `IrisSkin4.dll`
+- `MP10.ssk`
+- SQL Server through `System.Data.SqlClient`
 
-The application also uses SQL Server directly from a number of forms through `System.Data.SqlClient`.
+The original `hh.csproj` referenced `Model` and `PublicLib` as sibling source projects outside this repository. Their source projects are not present. The DLLs that were available in the original build output are now stored under `lib/`.
 
-A simplified view is:
+## 4. Database dependency
+
+The configured database name is `CinemaSystem`.
+
+The repository contains code that accesses tables including `Hall`, `Movie`, `Timing`, and `Order`, and code that calls stored procedures such as `CheckCustomerLogin`.
+
+The current repository does not contain:
+
+- SQL table definitions
+- stored procedure definitions
+- seed data
+- a SQL Server backup
+
+Because those assets are missing, the exact database constraints, indexes, triggers, and stored-procedure behavior cannot be verified from this repository.
+
+## 5. Data access patterns
+
+Database access appears directly in multiple WinForms classes through `SqlConnection`, `SqlCommand`, `SqlDataAdapter`, `DataSet`, and `SqlDataReader`.
+
+Some commands use stored procedures with parameters. Other SQL statements are constructed through string concatenation.
+
+Connection creation, opening, closing, and exception handling are implemented separately in multiple forms.
+
+## 6. Ticket booking flow
+
+`BuyTickets.cs`:
+
+1. reads hall row / column information;
+2. creates seat controls dynamically;
+3. loads sold seats from the `Order` table;
+4. marks selected seats in the UI;
+5. checks the selected seats again before insertion;
+6. inserts order records.
+
+The seat check and order insertion are separate database operations in the application code.
+
+Whether the database itself also prevents duplicate booking cannot be determined because the database schema and constraints are not available.
+
+## 7. Configuration
+
+The original repository contained a SQL Server connection string in `app.config`.
+
+The current branch uses a Windows Integrated Authentication example instead:
 
 ```text
-WinForms UI (hh)
-   ├── direct ADO.NET / SQL Server access
-   ├── Model dependency
-   ├── PublicLib dependency
-   └── IrisSkin4 UI skin dependency
+Data Source=.;Initial Catalog=CinemaSystem;Integrated Security=True
 ```
 
-This means the codebase is not a clean layered architecture: presentation, business rules, and persistence responsibilities overlap.
+The old value remains part of Git history unless that history is rewritten.
 
-## 4. Important technical debt
+## 8. Tests
 
-### SQL construction
+No automated test project is present in the current repository.
 
-Several queries are constructed by concatenating input into SQL strings. For example, movie-management and booking paths assemble SQL statements in application code.
-
-A modernized version should use parameterized commands consistently.
-
-### Booking concurrency
-
-The booking flow first checks whether seats are already occupied and later inserts orders.
-
-Conceptually:
-
-```text
-check seat availability
-        ↓
-user confirms / code continues
-        ↓
-insert order
-```
-
-Without a database transaction or uniqueness constraint protecting the whole operation, two concurrent clients can race between the check and insertion.
-
-A production implementation should enforce seat uniqueness at the database level and perform the reservation in a transaction.
-
-### Repeated data-access code
-
-Connection creation, opening, exception handling and cleanup are repeated across many forms. A dedicated data-access layer would reduce duplication and make testing possible.
-
-### UI/business coupling
-
-Many form event handlers contain validation, SQL access, business rules and UI updates in the same method. A modern refactor would separate these responsibilities.
-
-### Testing
-
-No automated test suite is present. The existing code is primarily event-driven and database-coupled, which makes unit testing difficult without first extracting business logic.
-
-## 5. Security cleanup
-
-The original public `app.config` contained a SQL Server `sa` username and a hard-coded password.
-
-The repository cleanup replaces that with Windows integrated authentication as a non-secret example.
-
-Important: deleting a credential in a later commit does **not** erase it from Git history. If the old credential was ever used outside a disposable local development database, it should be considered exposed and rotated.
-
-## 6. Suggested future restoration path
-
-If this project is ever revived beyond portfolio preservation, the highest-value steps are:
-
-1. Recover the original `Model` and `PublicLib` source projects if they still exist.
-2. Recover/export the `CinemaSystem` SQL schema, stored procedures and minimal seed data.
-3. Add a reproducible database setup script.
-4. Replace concatenated SQL with parameterized commands.
-5. Make ticket purchase transactional and enforce seat uniqueness in SQL Server.
-6. Extract data access from WinForms event handlers.
-7. Add a small integration-test suite around login, showtime selection and seat booking.
-8. Only then consider a framework migration.
-
-A framework rewrite should not be the first step: restoring reproducibility and correctness provides much more value than changing UI technology.
+Runtime behavior that depends on the missing database cannot be reproduced from the repository alone.
