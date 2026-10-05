@@ -1,0 +1,38 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+# Compiler / debugger artifacts
+*.pdb
+*.cache
+*.log
+
+# NuGet
+packages/
+*.nupkg
+
+# ReSharper / Rider
+_ReSharper*/
+*.DotSettings.user
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local database / credentials
+*.mdf
+*.ldf
+*.bak
+*.user.config
