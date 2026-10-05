@@ -2,7 +2,7 @@
 
 # 🎬 电影院订票系统
 
-**一个使用 C# WinForms、.NET Framework 4.0 与 SQL Server 实现并保留下来的本科课程项目。**
+**基于 C# WinForms、.NET Framework 4.0 和 SQL Server 的桌面端电影院订票与管理系统。**
 
 [English](./README.md) · [技术说明](./docs/PROJECT_NOTES.zh-CN.md)
 
@@ -10,45 +10,45 @@
 ![.NET Framework](https://img.shields.io/badge/.NET%20Framework-4.0-512BD4)
 ![SQL Server](https://img.shields.io/badge/Database-SQL%20Server-CC2927?logo=microsoftsqlserver&logoColor=white)
 ![Platform](https://img.shields.io/badge/Platform-Windows-0078D4?logo=windows&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Legacy%20Portfolio-lightgrey)
+![Year](https://img.shields.io/badge/Project-2020-lightgrey)
 
 </div>
 
 ---
 
-## 项目说明
+## 项目简介
 
-这是一个保留至今的 **2020 年本科阶段项目**：使用 Windows Forms 与 SQL Server 实现的桌面端电影院订票与后台管理系统。
+该项目完成于 2020 年本科阶段，用于实现电影院用户订票和管理员后台管理功能。
 
-目前将它定位为一个 **legacy portfolio project（历史作品集项目）**，而不是把旧代码重新包装成仿佛 2026 年才写出来的现代工程。原始代码风格、窗体组织方式和当时的设计取舍基本保留，只对 GitHub 仓库本身进行了整理，让今天的读者能够快速理解：**当时做了什么、项目如何组织、现在还缺什么。**
+程序采用 Windows Forms 构建桌面界面，使用 SQL Server 保存业务数据。当前仓库包含 WinForms 源码、工程文件、资源文件，以及原仓库中能够找到的二进制依赖。
 
-> **重要：** 当前仓库适合用于**代码阅读、项目审阅和作品展示**，但由于原始 SQL Server 数据库资产已经不在仓库中，因此目前**不具备完整的 clone-and-run 可复现性**。
+原始 SQL Server 数据库文件和数据库脚本目前不在仓库中。
 
-## 当前可用状态
+## 仓库当前状态
 
-| 能力 | 状态 | 说明 |
+| 项目 | 状态 | 说明 |
 | --- | :---: | --- |
-| 阅读源码 | ✅ | WinForms UI 源码基本完整 |
-| 使用 Visual Studio 打开 | ✅ / ⚠️ | 需要能够支持 .NET Framework 4.0 的 Windows 开发环境 |
-| 编译 UI 工程 | ⚠️ | 历史二进制依赖已整理到 `lib/`，但尚未在现代环境重新验证 |
-| 启动完整系统 | ❌ | 依赖原始 `CinemaSystem` 数据库 |
-| 从仓库恢复数据库 | ❌ | 缺少 schema、存储过程与 seed data |
-| 用于生产环境 | ❌ | 仅作为历史学习与作品集项目 |
+| 源代码 | ✅ | WinForms 源码和资源文件已包含 |
+| Visual Studio 工程 | ✅ | 包含 `CinemaBookingSystem.sln` 和 `hh.csproj` |
+| 二进制依赖 | ✅ | 现有 DLL / skin 文件整理在 `lib/` |
+| 编译验证 | ⚠️ | 尚未在当前 Windows / Visual Studio 环境重新编译验证 |
+| 数据库表结构 | ❌ | 仓库中不存在 |
+| 存储过程 | ❌ | 仓库中不存在 |
+| 初始化 / 示例数据 | ❌ | 仓库中不存在 |
+| 完整运行 | ❌ | 需要缺失的 `CinemaSystem` 数据库 |
 
 ## 用户端流程
 
 ```mermaid
 flowchart LR
     A[用户登录] --> B[用户菜单]
-    B --> C[浏览影片]
-    C --> D[选择场次]
-    D --> E[选择座位]
-    E --> F{座位是否仍可用}
-    F -->|是| G[创建订单]
-    F -->|否| E
-    G --> H[订单记录]
+    A --> C[用户注册]
+    B --> D[浏览影片]
+    D --> E[选择场次]
+    E --> F[选择座位]
+    F --> G[创建订单]
+    B --> H[订单记录]
     B --> I[会员 / VIP]
-    A --> J[用户注册]
 ```
 
 ## 管理员端流程
@@ -66,38 +66,38 @@ flowchart TD
     H --> J[上座率统计]
 ```
 
-## 项目架构
+## 项目结构
 
 ```mermaid
 flowchart LR
     UI["WinForms UI<br/>hh.csproj"]
-    MODEL["Model.dll<br/>历史二进制依赖"]
-    LIB["PublicLib.dll<br/>历史二进制依赖"]
-    SKIN["IrisSkin4<br/>界面皮肤"]
+    MODEL["Model.dll"]
+    LIB["PublicLib.dll"]
+    SKIN["IrisSkin4"]
     DB[("SQL Server<br/>CinemaSystem")]
 
     UI --> MODEL
     UI --> LIB
     UI --> SKIN
     UI -->|ADO.NET / System.Data.SqlClient| DB
-    MODEL -. 原始源码已缺失 .-> DB
 ```
 
-当前仓库主要保存的是 **WinForms UI 层**。原始工程曾引用仓库之外的 `Model` 与 `PublicLib` 两个兄弟项目，但 2020 年上传时没有把它们的源码一起提交。历史编译得到的 DLL 仍然存在，因此整理后将必要依赖集中放到了 `lib/` 中，使依赖关系至少变得明确和可追踪。
+UI 工程原本通过 ProjectReference 引用了仓库之外的 `Model` 和 `PublicLib` 两个兄弟项目。当前仓库中没有这两个项目的源码；原项目遗留的编译 DLL 已整理到 `lib/`。
 
 ## 功能
 
-### 👤 用户端
+### 用户端
 
 - 用户注册与登录
 - 浏览影片及排片
-- 根据影厅行列动态生成座位图
-- 选座与座位占用检查
+- 根据影厅行列生成座位图
+- 选择座位
+- 检查座位占用状态
 - 购票
 - 订单记录及相关操作
 - 会员 / VIP 办理
 
-### 🛠️ 管理员端
+### 管理员端
 
 - 管理员登录
 - 影厅管理
@@ -120,7 +120,7 @@ flowchart LR
 | UI 皮肤 | IrisSkin4 |
 | 目标平台 | x86 / Windows |
 
-## 项目结构
+## 源码目录
 
 ```text
 .
@@ -129,7 +129,7 @@ flowchart LR
 ├── Form2.cs                   # 用户菜单
 ├── Form3.cs                   # 用户注册
 ├── Form4.cs                   # 影片 / 排片选择
-├── BuyTickets.cs              # 动态座位与购票
+├── BuyTickets.cs              # 选座与购票
 ├── Form5.cs                   # 订单记录
 ├── Form6.cs                   # 会员 / VIP
 ├── Form7.cs                   # 管理员登录
@@ -140,9 +140,12 @@ flowchart LR
 ├── Form12.cs                  # 订单管理
 ├── Form13.cs                  # 用户管理
 ├── Form14.cs                  # 统计菜单
-├── Form15.cs / Form17.cs      # 统计视图
+├── Form15.cs                  # 统计视图
+├── Form16.cs
+├── Form17.cs                  # 统计视图
+├── Form18.cs
 ├── Properties/
-├── lib/                       # 保留的历史运行依赖
+├── lib/                       # 二进制依赖
 ├── docs/
 │   ├── PROJECT_NOTES.md
 │   └── PROJECT_NOTES.zh-CN.md
@@ -151,28 +154,24 @@ flowchart LR
 └── hh.csproj
 ```
 
-## 为什么 clone 后不能直接完整运行？
+## 数据库依赖
 
-原始程序依赖一个名为 `CinemaSystem` 的 SQL Server 数据库。
+程序依赖名为 `CinemaSystem` 的 SQL Server 数据库。
 
-这个数据库不仅保存数据表和数据，还承载了一部分数据库侧逻辑。例如用户登录流程会调用名为 `CheckCustomerLogin` 的存储过程。
+部分数据库操作直接写在 WinForms 代码中，部分操作通过 `Model` / `PublicLib` 中的方法完成。例如，用户登录流程会调用存储过程 `CheckCustomerLogin`。
 
-而当前仓库已经没有：
+当前仓库不包含原始：
 
-- 数据库表结构
+- 数据表定义
 - 存储过程
-- 演示 / 初始化数据
-- 原始数据库备份
+- 初始化 / 示例数据
+- 数据库备份
 
-因此，目前可以恢复和阅读 UI 项目、查看程序逻辑和依赖关系，但**无法仅依靠本仓库忠实重建完整运行环境**。
-
-如果未来从旧电脑中重新找到数据库备份，可以再将其整理成脱敏后的 SQL 恢复包补进仓库。
+因此，clone 当前仓库后可以查看源码和工程结构，但无法仅依赖仓库内容恢复完整运行环境。
 
 ## 本地配置
 
-当前提交的 `app.config` **不包含数据库密码**。
-
-使用 Windows 身份认证的示例：
+当前 `app.config` 使用 Windows 身份认证作为连接字符串模板：
 
 ```xml
 <add
@@ -181,59 +180,20 @@ flowchart LR
   providerName="System.Data.SqlClient" />
 ```
 
-真实数据库账号、密码等敏感信息不应提交到 Git 仓库。
+如果存在兼容的 `CinemaSystem` 数据库，可以在本地修改连接字符串。
 
-## 工程回顾
+## 实现说明
 
-今天回头看，这个项目包含不少典型的早期端到端应用特征：
+当前源码中可以确认以下实现方式：
 
-```mermaid
-flowchart TD
-    FORM[WinForms 事件处理函数]
-    FORM --> UI[更新界面状态]
-    FORM --> VALIDATION[输入校验]
-    FORM --> BUSINESS[业务规则]
-    FORM --> SQL[拼装 SQL]
-    SQL --> DB[(SQL Server)]
-```
+- WinForms 事件处理函数同时包含界面更新、输入校验、数据库访问和业务操作。
+- 部分 SQL 语句通过字符串拼接构造。
+- 多个 Form 分别包含数据库连接相关代码。
+- 购票流程在应用层先检查座位状态，再执行订单写入。
+- 仓库中没有自动化测试项目。
 
-主要技术债包括：
-
-- UI、业务逻辑与数据访问高度耦合。
-- 部分 SQL 通过字符串拼接构造，而非统一使用参数化查询。
-- 购票过程先检查座位、随后再写入订单，整个过程没有数据库事务保护。
-- 数据库连接、异常处理等逻辑在多个 Form 中重复出现。
-- 没有自动化测试。
-- 数据库侧实现已经缺失。
-
-其中“座位并发”是一个很典型的软件工程问题：
-
-```mermaid
-sequenceDiagram
-    participant A as 用户 A
-    participant B as 用户 B
-    participant DB as 数据库
-
-    A->>DB: 查询 5-6 座位
-    B->>DB: 查询 5-6 座位
-    DB-->>A: 可用
-    DB-->>B: 可用
-    A->>DB: 写入订单
-    B->>DB: 写入订单
-```
-
-如果用于生产环境，正确做法应当依靠**数据库事务 + 唯一性约束**保护购票操作，而不是只依赖应用层的 `CheckSeat()`。
-
-更详细的技术回顾见：[docs/PROJECT_NOTES.zh-CN.md](./docs/PROJECT_NOTES.zh-CN.md)。
-
-## 历史说明
-
-本次整理刻意没有把旧项目大规模重构成现代架构。
-
-它的价值就在于真实保留了本科阶段的一次完整工程实践：既能看到当时已经完成的功能，也能清楚看到今天回头审视时可以改进的地方。
-
-相比把历史代码全部重写，这种状态更适合作为一个长期作品集和技术成长记录。
+更详细的源码结构说明见：[docs/PROJECT_NOTES.zh-CN.md](./docs/PROJECT_NOTES.zh-CN.md)。
 
 ## License
 
-当前仓库没有选择开源许可证。代码可以在 GitHub 上公开查看，但在后续明确加入许可证之前，本仓库并未主动授予额外的复制、修改或再分发权利。
+当前仓库未包含开源许可证文件。
