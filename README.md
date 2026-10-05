@@ -2,7 +2,7 @@
 
 # 🎬 Cinema Booking System
 
-**A preserved undergraduate cinema booking system built with C# WinForms, .NET Framework 4.0 and SQL Server.**
+**Desktop cinema booking and management system built with C# WinForms, .NET Framework 4.0 and SQL Server.**
 
 [简体中文](./README.zh-CN.md) · [Technical Notes](./docs/PROJECT_NOTES.md)
 
@@ -10,45 +10,45 @@
 ![.NET Framework](https://img.shields.io/badge/.NET%20Framework-4.0-512BD4)
 ![SQL Server](https://img.shields.io/badge/Database-SQL%20Server-CC2927?logo=microsoftsqlserver&logoColor=white)
 ![Platform](https://img.shields.io/badge/Platform-Windows-0078D4?logo=windows&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Legacy%20Portfolio-lightgrey)
+![Year](https://img.shields.io/badge/Project-2020-lightgrey)
 
 </div>
 
 ---
 
-## About
+## Overview
 
-This repository preserves a **2020 undergraduate project**: a desktop cinema booking and management system implemented with Windows Forms and SQL Server.
+This project was developed in 2020 as an undergraduate cinema booking system.
 
-It is intentionally kept as a **legacy portfolio project**, not rewritten to look like a modern production system. The original coding style, form-based structure and design trade-offs remain visible; the repository itself has been cleaned up so that another developer can understand what was built, how it was structured, and what is missing today.
+It provides customer-side ticket booking functions and administrator-side cinema management functions through a Windows Forms desktop application backed by SQL Server.
 
-> **Important:** this repository is currently suitable for **code reading and project review**, but it is **not fully clone-and-run reproducible** because the original SQL Server database assets are no longer available in the repository.
+The repository currently contains the WinForms source code, project files, resources, and the binary dependencies that were available in the original repository. The original SQL Server database files and database scripts are not included.
 
-## At a glance
+## Repository status
 
-| Capability | Status | Notes |
+| Item | Status | Notes |
 | --- | :---: | --- |
-| Browse source code | ✅ | Complete WinForms UI source is present |
-| Open in Visual Studio | ✅ / ⚠️ | Requires a Windows environment capable of targeting .NET Framework 4.0 |
-| Build the UI project | ⚠️ | Legacy binary dependencies are preserved under `lib/`, but the build has not been revalidated on a modern machine |
-| Launch the full application | ❌ | Requires the original `CinemaSystem` database |
-| Restore database from repository | ❌ | Schema, stored procedures and seed data are missing |
-| Production use | ❌ | Historical educational project only |
+| Source code | ✅ | WinForms source and resources are available |
+| Visual Studio project | ✅ | `CinemaBookingSystem.sln` and `hh.csproj` are included |
+| Legacy binary dependencies | ✅ | Required DLL / skin files are stored under `lib/` |
+| Build verification | ⚠️ | Not re-tested on a current Windows / Visual Studio environment |
+| Database schema | ❌ | Not available in the repository |
+| Stored procedures | ❌ | Not available in the repository |
+| Seed / sample data | ❌ | Not available in the repository |
+| Full application runtime | ❌ | Requires the missing `CinemaSystem` database |
 
-## User workflow
+## Customer workflow
 
 ```mermaid
 flowchart LR
     A[Customer Login] --> B[Customer Menu]
-    B --> C[Browse Movies]
-    C --> D[Select Showtime]
-    D --> E[Choose Seats]
-    E --> F{Seats still available?}
-    F -->|Yes| G[Create Order]
-    F -->|No| E
-    G --> H[Order History]
+    A --> C[Registration]
+    B --> D[Browse Movies]
+    D --> E[Select Showtime]
+    E --> F[Choose Seats]
+    F --> G[Create Order]
+    B --> H[Order History]
     B --> I[Membership / VIP]
-    A --> J[Registration]
 ```
 
 ## Administrator workflow
@@ -66,38 +66,38 @@ flowchart TD
     H --> J[Occupancy Rate]
 ```
 
-## Architecture
+## Project structure
 
 ```mermaid
 flowchart LR
     UI["WinForms UI<br/>hh.csproj"]
-    MODEL["Model.dll<br/>legacy binary"]
-    LIB["PublicLib.dll<br/>legacy binary"]
-    SKIN["IrisSkin4<br/>UI skin"]
+    MODEL["Model.dll"]
+    LIB["PublicLib.dll"]
+    SKIN["IrisSkin4"]
     DB[("SQL Server<br/>CinemaSystem")]
 
     UI --> MODEL
     UI --> LIB
     UI --> SKIN
     UI -->|ADO.NET / System.Data.SqlClient| DB
-    MODEL -. original source missing .-> DB
 ```
 
-The checked-in project is primarily the **WinForms UI layer**. The original solution referenced sibling `Model` and `PublicLib` projects that were not included in the 2020 upload. Their historical compiled assemblies have been preserved under `lib/` so that the dependency structure is at least explicit.
+The UI project originally referenced `Model` and `PublicLib` as sibling source projects outside this repository. Their source projects are not present in the current repository; compiled DLLs from the original project are stored under `lib/`.
 
 ## Features
 
-### 👤 Customer
+### Customer
 
-- Registration and login
+- Customer registration and login
 - Movie and showtime browsing
 - Dynamic seat-map generation
-- Seat selection and availability checks
+- Seat selection
+- Seat availability checking
 - Ticket booking
 - Order history and order operations
 - Membership / VIP handling
 
-### 🛠️ Administrator
+### Administrator
 
 - Administrator login
 - Cinema hall management
@@ -118,9 +118,9 @@ The checked-in project is primarily the **WinForms UI layer**. The original solu
 | Database | Microsoft SQL Server |
 | Data access | ADO.NET / `System.Data.SqlClient` |
 | UI skin | IrisSkin4 |
-| Target | x86 / Windows |
+| Target platform | x86 / Windows |
 
-## Project map
+## Source map
 
 ```text
 .
@@ -129,7 +129,7 @@ The checked-in project is primarily the **WinForms UI layer**. The original solu
 ├── Form2.cs                   # Customer menu
 ├── Form3.cs                   # Registration
 ├── Form4.cs                   # Movie / showtime selection
-├── BuyTickets.cs              # Dynamic seats and ticket purchase
+├── BuyTickets.cs              # Seat selection and ticket booking
 ├── Form5.cs                   # Order history
 ├── Form6.cs                   # Membership / VIP
 ├── Form7.cs                   # Administrator login
@@ -140,9 +140,12 @@ The checked-in project is primarily the **WinForms UI layer**. The original solu
 ├── Form12.cs                  # Order management
 ├── Form13.cs                  # Customer management
 ├── Form14.cs                  # Statistics menu
-├── Form15.cs / Form17.cs      # Statistics views
+├── Form15.cs                  # Statistics view
+├── Form16.cs
+├── Form17.cs                  # Statistics view
+├── Form18.cs
 ├── Properties/
-├── lib/                       # Preserved legacy runtime dependencies
+├── lib/                       # Binary dependencies
 ├── docs/
 │   ├── PROJECT_NOTES.md
 │   └── PROJECT_NOTES.zh-CN.md
@@ -151,28 +154,24 @@ The checked-in project is primarily the **WinForms UI layer**. The original solu
 └── hh.csproj
 ```
 
-## Why it does not run immediately after cloning
+## Database dependency
 
-The original application depends on a SQL Server database named `CinemaSystem`.
+The application expects a SQL Server database named `CinemaSystem`.
 
-The historical database contained not only tables and data, but also database-side behavior such as stored procedures. For example, the login path invokes a stored procedure named `CheckCustomerLogin`.
+Database access is performed both directly from WinForms code and through methods provided by the `Model` / `PublicLib` dependencies. The login flow, for example, calls the stored procedure `CheckCustomerLogin`.
 
-The repository no longer contains:
+The repository does not contain the original:
 
-- database schema
+- table definitions
 - stored procedures
-- seed / demonstration data
-- original database backup
+- seed / sample data
+- database backup
 
-Without those assets, the UI can be inspected and the legacy dependency structure can be reconstructed, but the complete application cannot be reproduced faithfully from this repository alone.
-
-If the old database backup is ever recovered, it can be added later as a sanitized SQL restoration package.
+As a result, cloning the repository is sufficient for source-code inspection, but not for reproducing the complete application runtime.
 
 ## Local configuration
 
-The committed `app.config` intentionally contains **no database password**.
-
-Example using Windows authentication:
+The committed `app.config` contains a connection-string template using Windows authentication:
 
 ```xml
 <add
@@ -181,57 +180,20 @@ Example using Windows authentication:
   providerName="System.Data.SqlClient" />
 ```
 
-Do not commit real database credentials.
+Change the connection string locally if a compatible `CinemaSystem` database is available.
 
-## Engineering retrospective
+## Implementation notes
 
-Looking back, the project has several characteristics typical of an early end-to-end application:
+The source currently contains the following implementation patterns:
 
-```mermaid
-flowchart TD
-    FORM[WinForms event handler]
-    FORM --> UI[UI state updates]
-    FORM --> VALIDATION[Input validation]
-    FORM --> BUSINESS[Business rules]
-    FORM --> SQL[SQL construction]
-    SQL --> DB[(SQL Server)]
-```
+- WinForms event handlers perform UI updates, validation, database access, and business operations.
+- Several SQL statements are assembled by string concatenation.
+- Database connection code appears in multiple forms.
+- Seat availability is checked before order insertion in the application layer.
+- No automated test project is included in the repository.
 
-The main technical debt includes:
-
-- UI, business logic and data access are tightly coupled.
-- Some SQL statements are built through string concatenation rather than parameterized commands.
-- Seat availability is checked before order insertion without a database transaction protecting the whole operation.
-- Database connection and exception-handling logic is repeated across forms.
-- There is no automated test suite.
-- The database-side implementation is no longer available.
-
-The booking flow is particularly instructive:
-
-```mermaid
-sequenceDiagram
-    participant A as Customer A
-    participant B as Customer B
-    participant DB as Database
-
-    A->>DB: Check seat 5-6
-    B->>DB: Check seat 5-6
-    DB-->>A: Available
-    DB-->>B: Available
-    A->>DB: Insert order
-    B->>DB: Insert order
-```
-
-A production-grade implementation should protect this with a transaction and a database-level uniqueness constraint rather than relying only on an application-side availability check.
-
-For a deeper review, see [docs/PROJECT_NOTES.md](./docs/PROJECT_NOTES.md).
-
-## Historical note
-
-This cleanup deliberately avoids rewriting the project into a modern architecture just to make the repository look newer.
-
-The point is to preserve the project as a genuine snapshot of an undergraduate implementation while making its scope, strengths, limitations and technical lessons understandable to someone viewing it today.
+More details are listed in [docs/PROJECT_NOTES.md](./docs/PROJECT_NOTES.md).
 
 ## License
 
-No open-source license has been selected for this repository. The source is publicly viewable on GitHub, but no additional reuse rights are granted by this repository unless a license is added later.
+No open-source license file is currently included in the repository.
